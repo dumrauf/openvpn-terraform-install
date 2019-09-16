@@ -191,6 +191,6 @@ In one word: simplicity.
 
 Terraform is great for provisioning (fairly static) infrastructure but there are more sophisticated tools out there for provisioning and maintaining elastic infrastructure at scale, let alone user provisionin and maintenance. For sake of simplicity, Terraform is being used as the single tool of choice in this case.
 
-### Wait - There's a Pint Bounty in the Code?!
+### Wait — There's a Pint Bounty in the Code?!
 
 Yes. Find it. Solve it. Bag your reward. I'm looking forward to your solutions! Teach me something new!
