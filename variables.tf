@@ -54,7 +54,7 @@ variable "ssh_private_key_file" {
 }
 
 variable "ovpn_users" {
-  type        = "list"
+  type        = list(string)
   description = "The list of users to automatically provision with OpenVPN access"
 }
 
@@ -62,3 +62,4 @@ variable "ovpn_config_directory" {
   description = "The name of the directory to eventually download the OVPN configuration files to"
   default     = "generated/ovpn-config"
 }
+
