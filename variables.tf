@@ -23,7 +23,7 @@ variable "cidr_block" {
 
 variable "instance_type" {
   description = "The instance type to use"
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "instance_root_block_device_volume_size" {
