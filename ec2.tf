@@ -68,14 +68,7 @@ resource "null_resource" "openvpn_bootstrap" {
       "sudo yum update -y",
       "curl -O ${var.openvpn_install_script_location}",
       "chmod +x openvpn-install.sh",
-      <<EOT
-      sudo AUTO_INSTALL=y \
-           APPROVE_IP=${aws_instance.openvpn.public_ip} \
-           ENDPOINT=${aws_instance.openvpn.public_dns} \
-           ./openvpn-install.sh
-      
-EOT
-      ,
+      "sudo AUTO_INSTALL=y APPROVE_IP=${aws_instance.openvpn.public_ip} ENDPOINT=${aws_instance.openvpn.public_dns} ./openvpn-install.sh",
     ]
   }
 }
@@ -104,6 +97,7 @@ resource "null_resource" "openvpn_update_users_script" {
   provisioner "remote-exec" {
     inline = [
       "chmod +x ~${var.ec2_username}/update_users.sh",
+      "sed -i -e 's/\r$//' update_users.sh",
       "sudo ~${var.ec2_username}/update_users.sh ${join(" ", var.ovpn_users)}",
     ]
   }
@@ -116,15 +110,11 @@ resource "null_resource" "openvpn_download_configurations" {
     ovpn_users = join(" ", var.ovpn_users)
   }
 
+# Use this local exec only, if you are running Terraform from a Windows machine.
   provisioner "local-exec" {
     command = <<EOT
-    mkdir -p ${var.ovpn_config_directory};
-    scp -o StrictHostKeyChecking=no \
-        -o UserKnownHostsFile=/dev/null \
-        -i ${var.ssh_private_key_file} ${var.ec2_username}@${aws_instance.openvpn.public_ip}:/home/${var.ec2_username}/*.ovpn ${var.ovpn_config_directory}/
-    
+    mkdir ${var.ovpn_config_directory_windows} & scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ${var.ssh_private_key_file} ${var.ec2_username}@${aws_instance.openvpn.public_ip}:/home/${var.ec2_username}/*.ovpn ${var.ovpn_config_directory_windows}\
 EOT
 
   }
 }
-

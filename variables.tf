@@ -1,14 +1,6 @@
 variable "aws_region" {
   description = "The AWS region to use"
-  default     = "eu-west-2"
-}
-
-variable "shared_credentials_file" {
-  description = "The location of the AWS shared credentials file (e.g. ~dominic/.aws/credentials)"
-}
-
-variable "profile" {
-  description = "The profile to use"
+  default     = "us-east-2"
 }
 
 variable "tag_name" {
@@ -23,7 +15,7 @@ variable "cidr_block" {
 
 variable "instance_type" {
   description = "The instance type to use"
-  default     = "t2.micro"
+  default     = "t3.nano"
 }
 
 variable "instance_root_block_device_volume_size" {
@@ -63,3 +55,8 @@ variable "ovpn_config_directory" {
   default     = "generated/ovpn-config"
 }
 
+
+variable "ovpn_config_directory_windows" {
+  description = "WINDOWS ONLY The name of the directory to eventually download the OVPN configuration files to"
+  default     = "generated\\ovpn-config"
+}

@@ -60,33 +60,12 @@ Moreover, note that users `userOne`, `userTwo`, and `userThree` will be provisio
 
 > Each user provisioned via input `ovpn_users` should preferably be defined as a single word (i.e., no whitespace), _consisting only of ASCII letters and numbers with underscores as delimiters_; in technical terms, each user should adhere to `^[a-zA-Z0-9_]+$`.
 
-## Execution
-
-All Terraform interactions are wrapped in helper Bash scripts for convenience.
-
 ### Initialising Terraform
 
 Initialise Terraform by running
 ```
 ./terraform-bootstrap.sh
 ```
-
-### Applying the Terraform Configuration
-
-The OpenVPN server can be created and updated by running
-```
-./terraform-apply.sh <input-file-name>
-```
-where `<input-file-name>` references input file `settings/<input-file-name>.tfvars`.
-When using input file [settings/example.tfvars](settings/example.tfvars) configured above, the command becomes
-```
-./terraform-apply.sh example
-```
-Under the bonnet, the `terraform-apply.sh` Bash script with input `example`
- - selects or creates a new workspace called `example`
- - executes `terraform apply` where the inputs are taken from input file `settings/example.tfvars`
- - does not ask for permission to proceed as it uses `-auto-approve` when running the underlying `terraform apply` command
-
 
 ## Terraform Outputs
 
